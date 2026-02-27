@@ -1,0 +1,124 @@
+schema_version: 0.1
+doc_type: prd_config
+name: default_prd
+description: "Default Product/Engineering-first PRD structure (progressive locking, modular files)."
+
+paths:
+  prd_root: "product/prd"
+  index_file: "product/prd/index.md"
+
+versioning:
+  minor_bump_on_lock: true
+  major_bump_on_approval: true
+  bump_on_content_change_when_revalidating: true   # if stale section requires edits, bump minor
+
+states:
+  allowed:
+    - draft
+    - locked
+    - stale
+    - reopened
+    - approved
+
+  blocking_for_approval:
+    - draft
+    - stale
+    - reopened
+
+transitions:
+  draft:
+    - locked
+  locked:
+    - reopened
+    - stale
+  reopened:
+    - locked
+  stale:
+    - locked
+  approved: []
+
+rules:
+  single_active_section_edit: true
+  forbid_edit_locked_without_unlock: true
+  index_and_section_header_must_match: true
+  section_statuses_source: "both"            # both index + section headers
+  require_section_lock_ack: true             # explicit confirmation before locking
+
+sections:
+  - id: problem_definition
+    file: "02_problem_definition.md"
+    title: "Problem Definition"
+    order: 2
+    lockable: true
+
+  - id: goals_non_goals
+    file: "03_goals.md"
+    title: "Goals & Non-Goals"
+    order: 3
+    lockable: true
+
+  - id: user_journeys
+    file: "04_user_journeys.md"
+    title: "User Journeys"
+    order: 4
+    lockable: true
+
+  - id: functional_requirements
+    file: "05_functional_requirements.md"
+    title: "Functional Requirements"
+    order: 5
+    lockable: true
+
+  - id: non_functional_requirements
+    file: "06_non_functional_requirements.md"
+    title: "Non-Functional Requirements"
+    order: 6
+    lockable: true
+
+  - id: data_model
+    file: "07_data_model.md"
+    title: "Data Model (Logical)"
+    order: 7
+    lockable: true
+
+  - id: system_architecture
+    file: "08_system_architecture.md"
+    title: "System Architecture (High Level)"
+    order: 8
+    lockable: true
+
+  - id: integrations
+    file: "09_integrations.md"
+    title: "Integrations"
+    order: 9
+    lockable: true
+
+  - id: success_metrics
+    file: "10_success_metrics.md"
+    title: "Success Metrics"
+    order: 10
+    lockable: true
+
+  - id: risks_assumptions
+    file: "11_risks_assumptions.md"
+    title: "Risks & Assumptions"
+    order: 11
+    lockable: true
+
+  - id: open_questions
+    file: "12_open_questions.md"
+    title: "Open Questions"
+    order: 12
+    lockable: true
+
+  - id: acceptance_criteria
+    file: "13_acceptance_criteria.md"
+    title: "Acceptance Criteria"
+    order: 13
+    lockable: true
+
+  - id: approval
+    file: "14_approval.md"
+    title: "Approval"
+    order: 14
+    lockable: true

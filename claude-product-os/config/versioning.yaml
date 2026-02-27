@@ -1,0 +1,45 @@
+schema_version: 0.1
+doc_type: prd_versioning
+name: default_versioning
+description: "PRD versioning policy: minor bumps on locks, major bump on approval, efficient revalidation."
+
+version_format:
+  minor_prefix: "v"
+  store_as: "major_minor"
+
+policy:
+  bump_minor_on_section_lock: true
+  bump_major_on_prd_approval: true
+
+  revalidate:
+    bump_if_no_content_change: false
+    bump_if_content_changes: true
+    require_explicit_action: true
+
+  reopen:
+    bump_on_unlock: false
+    bump_on_relock_after_edit: true
+
+  post_approval:
+    default_bump: "major"                  # major | minor
+    require_explicit_override: true        # e.g. /reopen --minor
+
+document_states:
+  approved_label: "Approved"
+  draft_label: "Draft"
+
+recording:
+  index_file:
+    store_version_in_front_matter: true
+    store_version_in_body: true
+    store_change_log_entries: true
+
+  section_files:
+    store_status_in_front_matter: true
+    store_locked_in: true
+    store_last_validated: true
+    store_reopened_in: true
+
+validation:
+  require_index_and_section_version_match: true
+  require_index_and_section_status_match: true

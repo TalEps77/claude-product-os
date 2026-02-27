@@ -1,0 +1,56 @@
+schema_version: 0.1
+doc_type: prd_dependencies
+name: default_dependencies
+description: "Deterministic PRD section dependency map for stale propagation."
+
+dependencies:
+  problem_definition:
+    affects:
+      - goals_non_goals
+      - user_journeys
+      - functional_requirements
+      - success_metrics
+      - acceptance_criteria
+
+  goals_non_goals:
+    affects:
+      - user_journeys
+      - functional_requirements
+      - success_metrics
+      - acceptance_criteria
+
+  user_journeys:
+    affects:
+      - functional_requirements
+      - data_model
+      - acceptance_criteria
+
+  functional_requirements:
+    affects:
+      - data_model
+      - system_architecture
+      - integrations
+      - acceptance_criteria
+
+  non_functional_requirements:
+    affects:
+      - system_architecture
+      - acceptance_criteria
+
+  data_model:
+    affects:
+      - system_architecture
+      - integrations
+
+  system_architecture:
+    affects:
+      - integrations
+      - acceptance_criteria
+
+  integrations:
+    affects:
+      - acceptance_criteria
+
+  success_metrics:
+    affects:
+      - acceptance_criteria
